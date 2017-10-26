@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+
+   /*
+
+    reduce(callback,n)  n 可以改变累计项的默认值
+    prev  累计项  默认值是数组的第一项  上次累计的值
+    next  数组的当前项 默认值是数组的第二项  不断的往数组中取出一项
+    */
+
+//    let ary = [1,2,3,4];
+//    let result = ary.reduce((prev,next)=>{
+//        return prev+next
+//    },10);
+//    console.log(result);
+
+
+   let ary = [{price:20,count:10},{price:40,count:50},{price:120,count:50}]
+   let result =  ary.reduce((prev,next)=>{
+       return prev+next.price*next.count;
+    },0)
+    console.log(result);
+
+</script>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="app">
+        <div @click.self.once = "outer">
+            outer
+            <div @click="center">
+                center
+                <div @click ="inner">
+                    inner
+                </div>
+            </div>
+        </div>
+        <a href="http://www.zhufengpeixun.cn" @click.prevent = "fn">珠峰培训</a>
+        <input type="text" @keydown.ctrl.enter = "fn2"> <!--按ctrl+enter键起作用-->
+
+    </div>
+
+</body>
+</html>
+<script src="vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:"#app",
+        data:{},
+        methods:{
+            outer(){
+                alert("outer")
+            },
+            center(){
+                alert("center")
+            },
+            inner(){
+                alert("inner");
+            },
+            fn(){
+                alert(1);
+            },
+            fn2(){
+                alert("fn2");
+            }
+        }
+    })
+</script>

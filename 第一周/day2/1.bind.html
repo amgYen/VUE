@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        .red {
+            color: red;
+        }
+
+        .yellow {
+            color: yellow;
+        }
+
+        .fs {
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <!--属性值是动态数据 v-bind ""里表示变量  v-bind:src 简写:src-->
+    <!--<img :src="imgSrc" :width="'100'" >-->
+
+    <!--<img :src="'/path/to/images/' + fileName">-->
+
+    <!--1.通过boolean值来控制类名-->
+    <!--<div :class="{red:a==='1',yellow:!flag}">1111</div>-->
+    <!--2.有多个类名可以放在数组 类名要加''-->
+    <!--<div :class="['red','fs']">222222</div>-->
+
+    <!--<div :style="sty1">33333</div>-->
+
+    <!--属性值驼峰式写法,属性值要拿单引号包起来-->
+    <!--<div :style="{fontSize:'20px',color:'red'}">44444</div>-->
+
+    <!--把设置的对象合并在一块-->
+    <!--<div :style="[sty2,sty3]">554445</div>-->
+
+
+
+</div>
+</body>
+</html>
+<script src="vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            imgSrc: "http://www.zhufengpeixun.cn/themes/jianmo2/images/reactnative.png",
+            flag: true,
+            a: "1",
+            sty1: 'color:orange;font-size: 40px',
+            sty2: {fontSize: '40px'},
+            sty3: {color: 'orange'}
+        }
+    })
+
+
+</script>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <button @click = "getUser">获取数据</button>
+    <button @click ="postUser">发送数据</button>
+    <button @click = "getData">获取百度的数据</button>
+
+</div>
+</body>
+</html>
+<script src="vue.js"></script>
+<script src="vue-resource.js"></script>
+<script>
+    /*$http是在Vue的原型上,所以实例vm可以访问
+    * 发送请求的方式 get,head,delete,post,put
+    * 跨域请求 jsonp
+    *
+    * */
+    let vm = new Vue({
+        el:"#app",
+        data:{},
+        methods:{
+            getUser(){
+                this.$http.get("./products.json?name='zf'").then((res)=>{
+                    console.log(res.body);
+                },(err)=>console.log(err));
+            },
+            postUser(){
+                // ->/getAll的接口需要在后台配置下
+                this.$http.post("/getAll",{name:"zf",age:8}).then((res)=>{
+                    console.log(res.body);
+                },(err)=>console.log(err))
+            },
+            getData(){
+                this.$http.jsonp("https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su",{
+                  params:{
+                      wd:10
+                  },
+                  jsonp:"cb"
+                }).then((res)=>{
+                    console.log(res.body);//获取到响应的数据
+                },(err)=>console.log(err));
+            }
+        }
+    })
+</script>

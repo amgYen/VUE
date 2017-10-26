@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="app">
+        <!--o相当于DOM元素的别名 设置-->
+        <span ref="o1">111</span>
+        <span ref="o2">222</span>
+        {{msg}}<input type="checkbox" @click="fn">
+    </div>
+</body>
+</html>
+<script src="vue.js"></script>
+<script>
+    let vm = new Vue({
+//        el:"#app",
+        data:{
+            msg:"zfpx"
+        },
+        methods:{
+            fn(){
+               this.msg = "hello"
+            }
+        },
+        beforeCreate(){
+            alert("初始化之前")
+        },
+        created(){  //获取到数据和方法 ,通常在这个阶段发起请求,获取数据
+            alert("初始化完成")
+        },
+        beforeMount(){ //渲染前  没怎么用到
+            alert("挂载前")
+        },
+        mounted(){ //渲染后  可以获取到DOM元素
+            alert("挂载后");
+            //获取到DOM元素
+            //$nextTick保证DOM元素更新结束后再去操作
+            this.$nextTick(function(){ //这是一个异步
+                console.log(this.$refs.o2);
+            });
+            console.log(this.$refs.o1);
+        },
+        beforeUpdate(){
+            alert("更新前")
+        },
+        updated(){
+            alert("更新后")
+        },
+        beforeDestroy(){
+            alert("销毁前")
+        },
+        destroyed(){
+            alert("销毁后")
+        }
+    });
+    vm.$mount("#app"); //el:"#app" 手动挂载
+    //vm.$destroy();//销毁的是vm实例,但是已经渲染好的数据不销毁
+    //console.log(vm.methods);
+
+
+</script>

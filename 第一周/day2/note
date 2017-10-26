@@ -1,0 +1,22 @@
+npm install vue-resource
+v-bind  设置动态的数据
+    -src
+    -:class
+    -:style
+
+获取数据  vue-resource
+-  this.$http.get().then((res)=>console.log(res.body),(err)=>console.log(err))
+-  this.$http.post().then...
+-  this.$http.jsonp().then..
+
+对事件进行修饰 例如:@click.修饰符.修饰符  可以设置多个修饰符
+- 键盘事件修饰符
+- stop  e.stopPropagation ||e.cancelBubble = true
+- prevent  e.preventDefault || e.returnValue = false
+- capture  事件传播的阶段  捕获阶段  先捕获后冒泡
+- self  事件源是自己的时才会被触发
+- once 只能触发一次
+
+生命周期 Vue实例创建到销毁整个过程是怎样的,通过钩子函数,在不同的生命周期里做不同的事情
+- created  在这个阶段发送请求,把数据获取到
+- mounted
