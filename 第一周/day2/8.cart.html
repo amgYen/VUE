@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="bootstrap.css">
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div id="app" v-cloak>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-bordered">
+                    <caption class="h2 text-center" :style="{color:'red'}">购物车</caption>
+                    <tr>
+                        <th>全选 <input type="checkbox" v-model="selectAll"></th>
+                        <th class="text-center">商品</th>
+                        <th class="text-center">单价</th>
+                        <th class="text-center">数量</th>
+                        <th class="text-center">小计</th>
+                        <th class="text-center">操作</th>
+                    </tr>
+                    <tr v-for="item in products">
+                        <td class="text-center">
+                            <input type="checkbox" v-model="item.checked">
+                        </td>
+                        <td class="text-center">
+                            {{item.name}}
+                        </td>
+                        <td class="text-center">
+                            <input type="text" v-model="item.price">
+                        </td>
+                        <td class="text-center">
+                            <input type="text" v-model = "item.count">
+                        </td>
+                        <td class="text-center">
+                            <!--￥1300.0-->
+                            {{item.price*item.count|toFixed(1,'￥')}}
+                        </td>
+                        <td class="text-center">
+                            <button class="btn btn-danger btn-xs" @click = "remove(item)">删除</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="6">{{total|toFixed(1,'￥')}}</td>
+                    </tr>
+                </table>
+
+                <form>
+                    <div class="form-group">
+                        <label for="productName" class="control-label">商品名称</label>
+                        <input type="text" id="productName" class="form-control"  v-model="product.name">
+                    </div>
+                    <div class="form-group">
+                        <label for="productPrice" class="control-label">商品价格</label>
+                        <input type="text" id="productPrice" class="form-control" v-model="product.price">
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-info" @click="add">添加</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script src="vue.js"></script>
+<script src="vue-resource.js"></script>
+<script>
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            product:{name:"",price:""},
+            products: []
+        },
+        filters:{
+            //'￥'+123.56.toFixed(1)  按照指定的要求把数据展示成你要的效果
+            toFixed(input,param1,param2){ //input 代表|前面数据
+               return  param2+input.toFixed(1);
+            }
+        },
+        created() {
+            this.$http.get("./products.json").then((res) => {
+                this.products = res.body;
+            }, (err) => console.log(err));
+        },
+        methods:{
+          remove(p){
+              this.products = this.products.filter((item)=>{
+                  return item!=p
+              })
+          },
+            add(){
+                let obj = {count:1,checked:false};
+                let o = {...this.product,...obj};
+                this.products.push(o);
+                this.product.name= this.product.price = "";
+            }
+        },
+        computed:{
+            total:{
+                get(){
+                  return  this.products.reduce(function(prev,next){
+                        return prev+next.price*next.count
+                    },0)
+                }
+            },
+            selectAll:{
+                get(){
+                    if(this.products.length==0){
+                        return false;
+                    }
+                    return this.products.every((item)=>{
+                        return item.checked;
+                    })
+                },
+                set(val){
+                    this.products.forEach((item)=>{
+                        item.checked = val;
+                    })
+                }
+            }
+        }
+    })
+</script>

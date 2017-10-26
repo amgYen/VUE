@@ -1,20 +1,20 @@
 [
   {
     "checked": true,
-    "name": "Vue.js 前端开发 快速入门与专业应用",
+    "name": "Vue.js快速入门与专业应用",
     "price": 36.6,
-    "count": 3
+    "count": 4
+  },
+  {
+    "checked": false,
+    "name": "React.js快速入门与专业应用",
+    "price": 46.6,
+    "count": 5
   },
   {
     "checked": true,
-    "name": "Vue.js 前端开发 快速入门与专业应用",
-    "price": 36.6,
-    "count": 3
-  },
-  {
-    "checked": true,
-    "name": "Vue.js 前端开发 快速入门与专业应用",
-    "price": 36.6,
-    "count": 3
+    "name": "Node.js快速入门与专业应用",
+    "price": 56.6,
+    "count": 6
   }
 ]

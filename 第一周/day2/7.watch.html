@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="app">
+        <button @click = "fn">点击有惊喜~</button>
+    </div>
+</body>
+</html>
+<script src="vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            msg:"10元"
+        },
+        methods:{
+            fn(){
+                this.msg = "10000元"
+            }
+        },
+        watch:{  //可以异步的操作
+          /* msg(){
+              alert("惊喜处处可见!")
+           } */
+          msg:{  //当msg数据发生改变时,会执行handler方法
+              handler(){
+                  alert("惊喜处处可见!")
+              }
+          }
+        }
+    })
+</script>
