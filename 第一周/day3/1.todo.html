@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+    <style type="text/css">
+        .del{
+            text-decoration: line-through;
+            color: #999;
+        }
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div id="app" v-cloak>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">
+                    toDoList
+                </a>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <p>亲！你还有{{count}}件事需要完成</p>
+                        <input type="text" class="form-control" placeholder="请输入代办项" v-model="todo.title"  @keydown.13="add">
+                    </div>
+                    <div class="panel-body">
+                        <ul class="list-group">
+                            <li class="list-group-item" v-for="item in newTodos">
+                                <div v-show="cur!=item" @dblclick ="showInput(item)">
+                                    <input type="checkbox" v-model="item.select">
+                                    <span :class="{del:item.select}">{{item.title}}</span>
+                                    <button class="btn btn-xs btn-danger pull-right" @click ="remove(item)">x</button>
+                                </div>
+                                <input type="text" v-model="newObj.title" v-show="cur==item" @keydown.13="update(item)" @keydown.esc="cancel" @blur="cancel" v-auto-focus="cur==item">
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="panel-footer">
+                        <ul class="nav nav-pills">
+                            <li :class="{active:hash=='all'}"><a href="#all">全部</a></li>
+                            <li :class="{active:hash=='unfinish'}"><a href="#unfinish">未完成</a></li>
+                            <li :class="{active:hash=='finish'}"><a href="#finish">完成</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
+<script src="node_modules/vue/dist/vue.js"></script>
+<script src="node_modules/axios/dist/axios.js"></script>
+<!--可以在服务器端用-->
+<script src="todo.js"></script>
