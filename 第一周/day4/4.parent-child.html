@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <parent></parent>
+
+</div>
+<template id="p">
+    <!--每个组件外面必须有一个DOM元素包着-->
+    <div><div>parent</div><child></child></div>
+</template>
+</body>
+</html>
+<script src="vue.js"></script>
+<script>
+    let child = {
+        template:"<div>child</div>"
+    };
+   let parent = {
+       template:"#p",
+       components:{
+           child
+       }
+   };
+    let vm = new Vue({
+        el:"#app",
+        components:{
+            parent
+        }
+    })
+</script>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">  <!--在父组件监听子组件的事件s,一旦发射事件,执行父组件的p方法-->
+    {{name}}
+    <child @s="p"></child> <!--监听子组件发射的数据,子组件一旦发射事件,父组件执行p方法,通过p方法的形参接收传过来的值-->
+</div>
+</body>
+</html>
+<script src="vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:"#app",
+        data:{
+           name:"aa"
+        },
+        methods:{
+          p(data){
+             this.name = data
+          }
+        },
+        components:{
+            child:{
+                template:"<div @click='fn'>son </div>",
+                data(){
+                    return {
+                        msg:"大头儿子"
+                    }
+                },
+                methods:{
+                    fn(){
+                        this.$emit("s",this.msg);
+                    }
+                }
+            }
+        }
+
+    })
+
+</script>

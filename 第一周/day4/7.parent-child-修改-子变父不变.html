@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <parent></parent>
+</div>
+</body>
+</html>
+<script src="vue.js"></script>
+<script>
+let vm = new Vue({
+    el:"#app",
+    components:{
+        parent:{
+            template:"<div> father {{fMsg}} <child :n='fMsg'></child></div>",
+            data(){
+                return{
+                    fMsg:"小头爸爸"
+                }
+            },
+            components:{
+                child:{
+                    template:"<div @click='fn'>son {{a}}</div>",
+                    data(){
+                        return {
+                            sMsg:"大头儿子",
+                            a:{}
+                        }
+                    },
+                    mounted(){ //加载到当前组件后
+                        this.a = this.n;  //借助下第三方的变量
+                    },
+                    methods:{
+                        fn(){
+                            this.a = "father1" //this指的当前这个组件
+                        }
+                    },
+                    props:['n']
+                }
+            }
+        }
+    }
+})
+</script>

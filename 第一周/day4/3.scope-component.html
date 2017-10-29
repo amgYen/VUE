@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <hello></hello>
+    <world></world>
+</div>
+
+<template id="tel">
+    <div>hello  {{msg}} </div>
+</template>
+</body>
+</html>
+<script src="vue.js"></script>
+<script>
+    //局部组件
+    let hello = {
+            template:"#tel" , //可以把模板例的内容独立放在template标签里,指定下是哪个模板
+            data(){
+                return {
+                    msg:"zf"
+                }
+            }
+
+    };
+    let world = {
+        template:"<div @click='fn'>world {{wName}}</div>",
+        data(){
+            return {
+                wName:"zfpx"
+            }
+        },
+        methods:{
+            fn(){
+
+            }
+        }
+    };
+
+    let vm = new Vue({
+        el:"#app",
+        data:{},
+        components:{
+              hello,
+              world
+        },
+        methods:{
+
+        },
+        computed:{
+
+        }
+
+
+    })
+</script>

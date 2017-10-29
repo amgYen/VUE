@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <parent></parent>
+</div>
+</body>
+</html>
+<script src="vue.js"></script>
+<script>
+    //每个组件的作用域都是相互独立的,如何将父组件的数据传给子组件
+let vm = new Vue({
+    el:"#app",
+    components:{
+        parent:{
+            /*:n='fMsg' 动态绑定的方式传递数据*/
+            template:"<div> father {{fMsg}} <child message='hello' :n ='fMsg'></child></div>",
+            data(){
+                return{
+                    fMsg:{name:"小头爸爸"}
+                }
+            },
+            components:{
+                child:{
+                    template:"<div>son {{n.name}}</div>",
+                    data(){
+                        return {
+                            sMsg:"大头儿子"
+                        }
+                    },
+//                    props:["message","n"]
+                    props:{n:Object}  //设定父组件传过来的数据类型
+                }
+            }
+        }
+    }
+})
+</script>

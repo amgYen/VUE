@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <hello></hello>
+    <hello1></hello1>
+</div>
+</body>
+</html>
+<script src="vue.js"></script>
+<script>
+    let Event = new Vue();
+    let vm = new Vue({
+        el:"#app",
+        components:{
+            hello:{
+                template:"<div @click='fn'>hello</div>",
+                data(){
+                    return {
+                        name:"zfpx"
+                    }
+                },
+                methods:{
+                    fn(){
+                       Event.$emit("我有点饿",this.name);
+                    }
+                }
+            },
+            hello1:{
+                template:"<div>hello1 {{name}}</div>",
+                data(){
+                    return {
+                        name:"pxzf"
+                    }
+                },
+                mounted(){
+                    Event.$on("我有点饿",(n)=>{//要写成箭头函数,否则this就不是组件hello而是Event
+                        this.name = n;
+                    })
+                }
+            }
+        }
+    })
+</script>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <hello></hello>
+    <!--自定义标签指的是一个组件 zf-px或者驼峰式
+        自带的标签不能作为组件
+    -->
+</div>
+<div id="app1">
+    <hello></hello>
+</div>
+</body>
+</html>
+<script src="vue.js"></script>
+<script>
+    //全局组件
+    //写组件的顺序: 1.引入组件(确定组件放的位置) 2.注册组件 3.使用模板
+    Vue.component("hello",{
+        template:"<div @click='fn'>hello {{name}}</div>",  //模板里的内容代替自定义标签
+        data(){   //组件里的数据是放在data方法的返回值里  目的:各个组件的数据不会引起冲突
+            return {
+                name:"zfpx"
+            }
+        },
+        methods:{
+            fn(){
+                alert(this.name);
+            }
+        }
+    });
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            msg:"aa"
+        }
+    })
+
+    let vm1 = new Vue({
+        el:"#app1"
+    })
+
+</script>
