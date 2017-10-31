@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--
+单页面应用:所有的效果都在一个页面,根据同一个url的不同hash值显示不同的页面
+根据不同的url显示的不同的内容(主要改变的url里hash值
+-->
+<div id="app">
+    <router-link to="/home">首页</router-link>
+    <router-link to="/list">列表</router-link>
+    <router-view></router-view>  <!--组件模板里的内容是放在router-view里-->
+</div>
+</body>
+</html>
+<script src="vue.js"></script>
+<script src="vue-router.js"></script>
+<script>
+    let router = new VueRouter({
+        routes:[  //2.设置路由表
+            {  path:"/home",
+               component:{
+                 template:"<div>首页</div>"
+            }},
+            {
+                path:"/list",
+                component:{
+                   template:"<div>列表</div>"
+                }
+            },
+            {
+                path:"*",
+                redirect:"/home" //强制跳到home路由
+            }
+
+        ]
+    });
+    let vm = new Vue({
+        el:"#app",
+        router    //1.把vue路由实例放入vue实例里
+    })
+</script>

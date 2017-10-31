@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>模态框</title>
+    <style type="text/css">
+        *{
+            margin:0;
+            padding:0
+        }
+        html,body{
+            height: 100%;
+        }
+        #app{
+            height: 100%;
+        }
+        #mask{
+            width: 100%;
+            height: 100%;
+            background: #eee;
+            position: relative;
+            overflow: hidden;
+        }
+        #dialog{
+            width: 400px;
+            height: 400px;
+            position: absolute;
+            left:50%;
+            top:50%;
+            margin-top: -200px;
+            margin-left: -200px;
+            background: #fff;
+        }
+        #dialog button{
+            width: 30px;
+            height: 30px;
+            position: absolute;
+            z-index: 111;
+        }
+    </style>
+</head>
+<body>
+<!--父组件visible的值控制着模态框的显示和隐藏-->
+<div id="app">
+    <modal :s = "visible" @d="fn2"></modal>
+</div>
+<template id="modal">
+    <div id="mask" v-show="s">
+        <div id="dialog">
+            <button @click="fn">X</button>
+        </div>
+    </div>
+</template>
+</body>
+</html>
+<script src="vue.js"></script>
+<script>
+    let modal = {
+        template:"#modal",
+        data(){
+          return {
+              bol:false
+          }
+        },
+        methods:{
+            fn(){
+              this.$emit("d",this.bol)
+            }
+        },
+        props:["s"]
+    };
+    let vm = new Vue({
+        el:"#app",
+        data:{
+          visible:true
+        },
+        components:{
+            modal
+        },
+        methods:{
+            fn2(data){
+                this.visible = data;  //父组件渲染时会重新渲染子组件
+            }
+        }
+    })
+</script>

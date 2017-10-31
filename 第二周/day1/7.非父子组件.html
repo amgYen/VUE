@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <hello></hello>
+    <world></world>
+</div>
+<template id="hello">
+    <div> hello  <button @click="fn">按钮</button></div>
+
+</template>
+<template id="world">
+    <div>world {{myMsg}}</div>
+</template>
+</body>
+</html>
+<script src="vue.js"></script>
+<script>
+    let Event = new Vue();
+    let hello = {
+        template:"#hello",
+        data(){
+            return{
+                msg:"zfpx"
+            }
+        },
+        methods:{
+            fn(){
+                Event.$emit("珠峰",this.msg)
+            }
+        }
+    };
+    let world = {
+        template:"#world",
+        data(){
+          return {
+              myMsg:"pxzf"
+          }
+        },
+        mounted(){
+            Event.$on("珠峰",(data)=>{
+                this.myMsg = data;
+            })
+        }
+    };
+    let vm = new Vue({
+        el:"#app",
+        components:{
+            hello,
+            world
+        }
+    })
+</script>

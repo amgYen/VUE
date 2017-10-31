@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>嵌套的组件</title>
+</head>
+<body>
+<div id="app">
+    <parent></parent>
+</div>
+<template id="parent">
+    <div><div>parent</div><child></child></div>
+</template>
+<template id="children">
+    <div>child</div>
+</template>
+</body>
+</html>
+<script src="vue.js"></script>
+<script>
+    let parent = {
+        template:"#parent",
+        components:{
+           child:{
+               template:"#children"
+           }
+        }
+
+    }
+    let vm = new Vue({
+        el:"#app",
+        components:{
+            parent
+        }
+    })
+</script>

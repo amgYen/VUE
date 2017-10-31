@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <parent></parent>
+</div>
+<template id="parent">
+    <div><div>parent{{fMsg}}</div><child @s="p"></child></div>
+</template>
+<template id="child">
+    <div @click = "fn">child</div>
+</template>
+</body>
+</html>
+<script src="vue.js"></script>
+<script>
+    let child = {
+        template:"#child",
+        data(){
+            return {
+                sMsg:"鬼谷子"
+            }
+        },
+        methods:{
+            fn(){
+                this.$emit("s",this.sMsg);
+            }
+        }
+    }
+    let parent = {
+        template:"#parent",
+        data(){
+            return {
+                fMsg:"老子"
+            }
+        },
+        methods:{
+          p(data){ //data指子组件传过来的数据
+              this.fMsg  = data;
+          }
+        },
+        components:{
+            child
+        }
+    }
+    let vm = new Vue({
+        el:"#app",
+        components:{
+            parent
+        }
+    })
+</script>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+   <div id="app">
+       <router-link to="/list">列表</router-link>
+       <router-view></router-view>
+   </div>
+</body>
+</html>
+<script src="vue.js"></script>
+<script src="vue-router.js"></script>
+<script>
+    let router = new VueRouter({
+        routes:[
+            {
+                path:"/list",
+                component:{
+                    template:`<div><h3>列表</h3>
+                      <router-link to="/list/news/1">列表1</router-link>
+                      <router-link to="/list/news/2">列表2</router-link>
+                      <router-view></router-view>
+                    </div>`
+                },
+                children:[
+                    {
+                        path:"news/:nid",
+                        component:{
+                            /*在模板里获取参数 $route.params.nid*/
+                            template:`<div>当前列表是{{$route.params.nid}}</div>`
+                        },
+                        beforeEnter(to,from,next){
+                            //在路由组件渲染前,相当于在js中拿到参数
+                            console.log(to.params.nid);
+                           next();
+                        }
+                    }
+                ]
+            }
+        ]
+    });
+    let vm = new Vue({
+        el:"#app",
+        router
+    })
+</script>

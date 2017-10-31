@@ -1,0 +1,15 @@
+第一步:
+npm install babel-cli -g   在命令行里就可以使用babel命令
+
+npm install babel-preset-es2015 --save-dev  解析es6 ->es5
+npm install babel-preset-stage-0 --save-dev   解析扩展运算符
+
+第二步:
+添加 .babelrc文件 ,在这里设置下安装的东西
+{
+  "presets": ["es2015","stage-0"],
+  "plugins": []
+}
+第三步:
+找到文件所在的目录  babel 12.es6.js
+

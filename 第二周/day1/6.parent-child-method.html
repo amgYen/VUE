@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--ref 可以获取到DOM元素  在组件上可以获取到相应的组件  -->
+<div id="app">
+    <child ref ="children"></child>  <!--ref="children" 相当于设置下组件的别名-->
+    <div ref="div1">我是div元素</div> <!--div1相当于DOM元素的别名-->
+    <button @click="fn1">父组件的按钮</button>
+</div>
+<template id="child">
+    <div @click="fn">今天天气很好~~~</div>
+</template>
+</body>
+</html>
+<script src="vue.js"></script>
+<script>
+    let child = {
+        template:"#child",
+        data(){
+            return {
+               msg:"不出去"
+            }
+        },
+        methods:{
+            fn(){
+                alert("出去玩")
+            }
+        }
+    }
+    let vm = new Vue({
+        el:"#app",
+        components:{
+            child
+        },
+        methods:{
+            fn1(){
+                //在父组件这边想让子组件的fn方法执行
+//                console.log(this.$refs.div1);
+                //this.$refs.children.fn()  /* this.$refs.children指child的组件*/
+                alert(this.$refs.children.msg) //直接子组件上的数据
+            }
+        }
+    })
+</script>

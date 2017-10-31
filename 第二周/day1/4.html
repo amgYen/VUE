@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div id="app">
+    <parent></parent>
+</div>
+<template id="parent">
+    <div><div>parent {{fMsg.name}}</div><child msg="hello" :s="fMsg"></child></div>
+</template>
+<template id="children">
+    <div @click="fn">child {{msg}} {{a.name}}</div>
+</template>
+</body>
+</html>
+<script src="vue.js"></script>
+<script>
+    let parent = {
+        template:"#parent",
+        data(){
+          return {
+              fMsg:{name:"老子"}
+          }
+        },
+        components:{
+           child:{
+               template:"#children",
+               data(){
+                 return {
+                     a:this.s
+                 }
+               },
+               methods:{
+                 fn(){
+                     //this.s.name="鬼谷子"  //父组件数据和子组件数据同步
+                     this.a = {...this.s}; //父组件数据和子组件不保持同步
+                     this.a.name="鬼谷子";
+                 }
+               },
+               props:["msg","s"]
+           }
+
+        }
+
+    }
+    let vm = new Vue({
+        el:"#app",
+        components:{
+            parent
+        }
+    })
+</script>

@@ -1,0 +1,26 @@
+
+
+创建.babelrc
+npm install babel-preset-es2015 babel-preset-stage-2 --save-dev
+
+0. npm install webpack --save-dev
+
+1.创建webpack.config.js
+  var path = require("path");
+  module.exports = {
+      /*指定入口文件*/
+      entry:path.resolve(__dirname,"src/index.js"),
+      output:{
+          /*出口文件的路径*/
+          path:path.resolve(__dirname,"build"),
+          /*合并后的文件名*/
+          filename:"bundle.js"
+      }
+  }
+
+2.找到package.json
+"scripts": {
+    "build":"webpack"
+  },
+
+3.进入当前项目 执行 npm run build

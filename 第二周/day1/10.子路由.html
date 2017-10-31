@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <router-link to="/home">HOME</router-link>
+    <router-link to="/list">LIST</router-link>
+    <router-view></router-view>
+
+</div>
+<template id="list">
+    <div>
+        <h3>列表</h3>
+        <router-link to="/list/a1">LIST1</router-link>
+        <router-view></router-view>
+    </div>
+</template>
+</body>
+</html>
+<script src="vue.js"></script>
+<script src="vue-router.js"></script>
+<script>
+    let router = new VueRouter({
+        routes:[ //设置路由表
+            {
+                path:"/home",
+                component:{
+                    template:`<div><h3>首页</h3>
+                    <router-link to="/home/login">登录</router-link>
+                    <router-link to="/home/register">注册</router-link>
+                    <router-view></router-view></div>`
+                },
+                children:[  //设置子路由
+                    {
+                        path:"login", //子路由的path不能加/
+                        component:{
+                            template:"<div>登录登录登录</div>"
+                        }
+                    },
+                    {
+                        path:"register",
+                        component:{
+                            template:"<div>注册注册注册注册注册</div>"
+                        }
+                    }
+                ]
+            } ,
+            {
+                path:"/list",
+                component:{
+                    template:"#list",
+                },
+                children:[
+                    {
+                        path:"a1",
+                        component:{
+                            template:"<div>list1</div>"
+                        }
+                    }
+                ]
+            },
+            {
+                path:"*",
+                redirect:"/home"
+            }
+
+        ]
+    })
+    let vm = new Vue({
+        el:"#app",
+        router
+    })
+</script>
