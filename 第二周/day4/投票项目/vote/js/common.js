@@ -111,6 +111,10 @@ let navRender = (function () {
                     }
                 });
                 $link.eq(3).html(userInfo["name"]);
+                $link.eq(4).tap(function(){
+                    cookie.remove("userInfo");
+                    window.location.reload(true);
+                })
             } else {
                 $link.tap(function () {
                     let index = $(this).index();
@@ -123,8 +127,13 @@ let navRender = (function () {
             }
         }
     }
+
 })();
 navRender.init();
+;(function(){
+    window.userInfo = JSON.parse(cookie.get("userInfo"));
+})();
+
 
 
 
